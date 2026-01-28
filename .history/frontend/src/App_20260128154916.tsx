@@ -11,9 +11,9 @@ import Signup from "./components/signupPage";
 
 function App() {
   const [count, setCount] = useState(0);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div>
+    <>
       <div></div>
       <div>
         <a href="https://vite.dev" target="_blank">
@@ -29,16 +29,46 @@ function App() {
         </button>
       </div>
 
-      {/* <Dashboard /> */}
+      <Dashboard />
 
       <div>
+        {/* <SystemsProvider> */}
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/dashboard" />
+              ) : (
+                <Login
+                  setIsLoggedIn={setIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
+                  user={user}
+                  setUser={setUser}
+                />
+              )
+            }
+          />
           <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              isLoggedIn ? (
+                <Dashboard
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  user={user}
+                />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+          {/* <Route path="*" element={<Error />} /> */}
         </Routes>
+        {/* </SystemsProvider> */}
       </div>
-    </div>
+    </>
   );
 }
 

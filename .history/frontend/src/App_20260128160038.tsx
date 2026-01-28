@@ -31,13 +31,13 @@ function App() {
 
       {/* <Dashboard /> */}
 
-      <div>
+      {/* <div>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
-      </div>
+      </div> */}
     </div>
   );
 }
