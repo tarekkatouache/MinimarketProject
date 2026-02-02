@@ -22,12 +22,9 @@ export const createUser = async (req: Request, res: Response) => {
     });
     res.status(201).json(newUser);
   } catch (error) {
-    console.error("CREATE USER ERROR 👉", error);
-
-    return res.status(500).json({
-      message: "Internal server error while creating user",
-      error: error instanceof Error ? error.message : error,
-    });
+    res
+      .status(500)
+      .json({ message: "Internal server error while creating user", error });
   }
 };
 

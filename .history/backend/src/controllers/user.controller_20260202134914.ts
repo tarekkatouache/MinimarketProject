@@ -5,29 +5,21 @@ import { Request, Response } from "express";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { username, role, first_name, last_name } = req.body;
+    const { username, role } = req.body;
     if (!username || !role) {
-      return res
-        .status(400)
-        .json({ message: "Username and role are required" });
+      return res.status(400).json({ message: "Username and role are required" });
     }
     const newUser = await prisma.user.create({
       data: {
         username,
         role,
-        first_name,
-        last_name,
-        password_hash: "hashed_password_placeholder",
       },
     });
     res.status(201).json(newUser);
   } catch (error) {
-    console.error("CREATE USER ERROR 👉", error);
-
-    return res.status(500).json({
-      message: "Internal server error while creating user",
-      error: error instanceof Error ? error.message : error,
-    });
+    res
+      .status(500)
+      .json({ message: "Internal server error while creating user", error });
   }
 };
 
@@ -35,7 +27,7 @@ export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany({
       orderBy: {
-        created_at: "asc",
+        createdAt: "asc",
       },
     });
     res.status(200).json(users);
@@ -66,10 +58,10 @@ export const getUserById = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { user, role } = req.body;
+    const { name, role } = req.body;
     const updatedUser = await prisma.user.update({
       where: { id: Number(id) },
-      data: { first_name: user.first_name, last_name: user.last_name, role },
+      data: { name, role },
     });
     res.status(200).json(updatedUser);
   } catch (error) {

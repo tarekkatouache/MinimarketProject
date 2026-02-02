@@ -33,7 +33,7 @@ model expenses {
   note           String?
   user_id        Int?
   created_at     DateTime? @default(now())
-  user          user?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  users          users?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
 }
 
 model payments {
@@ -89,7 +89,7 @@ model sales {
   created_at     DateTime?    @default(now())
   payments       payments[]
   sale_items     sale_items[]
-   user         user?       @relation(fields: [cashier_id], references: [id], onUpdate: NoAction)
+  users          users?       @relation(fields: [cashier_id], references: [id], onUpdate: NoAction)
 }
 
 model stock_movements {
@@ -100,7 +100,7 @@ model stock_movements {
   reason        String?
   user_id       Int?
   created_at    DateTime? @default(now())
-  user         user?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  users         users?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
   products      products  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
@@ -114,11 +114,10 @@ model suppliers {
   products   products[]
 }
 
-model user {
+model users {
   id              Int               @id @default(autoincrement())
-  first_name      String
-  last_name       String?
-  username        String            @unique(map: "sqlite_autoindex_user_1")
+  full_name       String
+  username        String            @unique(map: "sqlite_autoindex_users_1")
   password_hash   String
   role            String
   is_active       Boolean?          @default(true)

@@ -116,8 +116,7 @@ model suppliers {
 
 model user {
   id              Int               @id @default(autoincrement())
-  first_name      String
-  last_name       String?
+  full_name       String
   username        String            @unique(map: "sqlite_autoindex_user_1")
   password_hash   String
   role            String

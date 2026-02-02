@@ -19,7 +19,6 @@ app.use("/api/db", dbRoutes);
 
 // user routes
 app.use("/api/users", userRoutes);
-
 app.listen(PORT, () => {
   console.log(`🚀 Backend running on http://localhost:${PORT}`);
 });

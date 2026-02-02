@@ -1,15 +1,14 @@
-import { create } from "node:domain";
 import prisma from "../utiles/prisma";
 
 import { Request, Response } from "express";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { username, role, first_name, last_name } = req.body;
-    if (!username || !role) {
+    const { username, role, first_name, last_name, password_hash } = req.body;
+    if (!username || !role || !password_hash) {
       return res
         .status(400)
-        .json({ message: "Username and role are required" });
+        .json({ message: "Username, role, and password_hash are required" });
     }
     const newUser = await prisma.user.create({
       data: {
@@ -17,17 +16,14 @@ export const createUser = async (req: Request, res: Response) => {
         role,
         first_name,
         last_name,
-        password_hash: "hashed_password_placeholder",
+        password_hash,
       },
     });
     res.status(201).json(newUser);
   } catch (error) {
-    console.error("CREATE USER ERROR 👉", error);
-
-    return res.status(500).json({
-      message: "Internal server error while creating user",
-      error: error instanceof Error ? error.message : error,
-    });
+    res
+      .status(500)
+      .json({ message: "Internal server error while creating user", error });
   }
 };
 

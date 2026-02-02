@@ -17,17 +17,13 @@ export const createUser = async (req: Request, res: Response) => {
         role,
         first_name,
         last_name,
-        password_hash: "hashed_password_placeholder",
       },
     });
     res.status(201).json(newUser);
   } catch (error) {
-    console.error("CREATE USER ERROR 👉", error);
-
-    return res.status(500).json({
-      message: "Internal server error while creating user",
-      error: error instanceof Error ? error.message : error,
-    });
+    res
+      .status(500)
+      .json({ message: "Internal server error while creating user", error });
   }
 };
 
@@ -35,7 +31,7 @@ export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany({
       orderBy: {
-        created_at: "asc",
+        createdAt: "asc",
       },
     });
     res.status(200).json(users);
