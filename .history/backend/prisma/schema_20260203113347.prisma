@@ -33,24 +33,24 @@ model expenses {
   note           String?
   user_id        Int?
   created_at     DateTime? @default(now())
-  user           user?     @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  user          user?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
 }
 
 model payments {
-  id         Int           @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   sale_id    Int
-  method     PaymentMethod @default(CASH)
+  method     String?
   amount     Decimal
   reference  String?
-  status     PaymentStatus @default(PAID)
-  created_at DateTime?     @default(now())
-  sales      sales         @relation(fields: [sale_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  status     PaymentStatus   @default("CONFIRMED")
+  created_at DateTime? @default(now())
+  sales      sales     @relation(fields: [sale_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model products {
   id              Int               @id @default(autoincrement())
   name            String
-  barcode         String?           @unique(map: "sqlite_autoindex_products_1")
+  barcode         String?         @unique(map: "sqlite_autoindex_products_1")
   category_id     Int?
   supplier_id     Int?
   purchase_price  Decimal
@@ -65,11 +65,6 @@ model products {
   categories      categories?       @relation(fields: [category_id], references: [id], onUpdate: NoAction)
   sale_items      sale_items[]
   stock_movements stock_movements[]
-  scanLogs        scan_logs[]
-
-  @@index([category_id])
-  @@index([is_active])
-  @@index([barcode])
 }
 
 model sale_items {
@@ -84,34 +79,30 @@ model sale_items {
 }
 
 model sales {
-  id             Int           @id @default(autoincrement())
-  receipt_number String        @unique(map: "sqlite_autoindex_sales_1")
+  id             Int          @id @default(autoincrement())
+  receipt_number String       @unique(map: "sqlite_autoindex_sales_1")
   total_amount   Decimal
   net_amount     Decimal?
-  discount       Decimal?      @default(0)
-  payment_method PaymentMethod @default(CASH)
-  payment_status PaymentStatus @default(PAID)
+  discount       Decimal?     @default(0)
+  payment_method String
+  payment_status String?      @default("PAID")
   cashier_id     Int?
-  created_at     DateTime?     @default(now())
+  created_at     DateTime?    @default(now())
   payments       payments[]
   sale_items     sale_items[]
-  user           user?         @relation(fields: [cashier_id], references: [id], onUpdate: NoAction)
-
-  @@index([created_at])
-  @@index([cashier_id])
-  @@index([payment_status])
+  user         user?       @relation(fields: [cashier_id], references: [id], onUpdate: NoAction)
 }
 
 model stock_movements {
-  id            Int               @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   product_id    Int
   movement_type StockMovementType
   quantity      Int
   reason        String?
   user_id       Int?
-  created_at    DateTime?         @default(now())
-  user          user?             @relation(fields: [user_id], references: [id], onUpdate: NoAction)
-  products      products          @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  created_at    DateTime? @default(now())
+  user         user?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  products      products  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model suppliers {
@@ -130,22 +121,21 @@ model user {
   last_name       String?
   username        String            @unique(map: "sqlite_autoindex_user_1")
   password_hash   String
-  role            Role              @default(CASHIER)
+  role            String
   is_active       Boolean?          @default(true)
   created_at      DateTime?         @default(now())
   expenses        expenses[]
   sales           sales[]
   stock_movements stock_movements[]
-  last_login      DateTime?
-  email           String?           @unique
-  phone           String?
-  updated_at      DateTime?         @updatedAt
-  scanLogs        scan_logs[]
+  last_login    DateTime?
+  email         String?   @unique
+  phone         String?
+  updated_at    DateTime? @updatedAt
 
-  @@index([role])
-  @@index([is_active])
+
+
+
 }
-
 model scan_logs {
   id         Int       @id @default(autoincrement())
   barcode    String
@@ -155,27 +145,23 @@ model scan_logs {
   products   products? @relation(fields: [product_id], references: [id])
   user       user?     @relation(fields: [user_id], references: [id])
 }
-
 enum Role {
   ADMIN
   MANAGER
   CASHIER
 }
-
 enum PaymentMethod {
   CASH
   CARD
   TRANSFER
   EWALLET
 }
-
 enum PaymentStatus {
   PENDING
   PAID
   PARTIAL
   REFUNDED
 }
-
 enum StockMovementType {
   PURCHASE
   SALE

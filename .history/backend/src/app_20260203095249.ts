@@ -6,7 +6,6 @@ import router from "./routes/db.routes";
 import prisma from "./utiles/prisma";
 import dbRoutes from "./routes/db.routes";
 import userRoutes from "./routes/user.routes";
-import saleItemsRoutes from "./routes/saleItems.routes";
 // import productRoutes from "./routes/product.routes";
 
 const app = express();
@@ -20,7 +19,7 @@ app.use("/api/db", dbRoutes);
 
 // user routes
 app.use("/api/users", userRoutes);
-app.use("/api/saleItems", saleItemsRoutes);
+app.use("/api/saleItems", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Backend running on http://localhost:${PORT}`);
