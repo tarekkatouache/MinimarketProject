@@ -7,30 +7,10 @@ import { Request, Response } from "express";
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { username, role, first_name, last_name } = req.body;
-
     if (!username || !role) {
       return res
         .status(400)
         .json({ message: "Username and role are required" });
-    }
-    // verify if user exists with same username or same (name and lastname)
-
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        OR: [
-          { username: req.body.username },
-          {
-            AND: [
-              { first_name: req.body.first_name },
-              { last_name: req.body.last_name },
-            ],
-          },
-        ],
-      },
-    });
-
-    if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
     }
     const newUser = await prisma.user.create({
       data: {

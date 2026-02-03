@@ -9,12 +9,14 @@ import userRoutes from "./routes/user.routes";
 import saleItemsRoutes from "./routes/saleItems.routes";
 import authRoutes from "./routes/auth.routes";
 // import productRoutes from "./routes/product.routes";
+import bodyParser from "body-parser";
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(bodyParser.json());
 
 app.use("/api/db", dbRoutes);
 // app.use("/api/products", productRoutes);

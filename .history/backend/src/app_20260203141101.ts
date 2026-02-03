@@ -13,8 +13,11 @@ import authRoutes from "./routes/auth.routes";
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(express.json()); // This line is MISSING - add it!
+app.use(express.urlencoded({ extended: true })); // Also good to have
+
 app.use(cors());
+app.use(express.json());
 
 app.use("/api/db", dbRoutes);
 // app.use("/api/products", productRoutes);

@@ -1,0 +1,1 @@
+export const generateToken = (payload: object, secret: string, expiresIn: string) => {
