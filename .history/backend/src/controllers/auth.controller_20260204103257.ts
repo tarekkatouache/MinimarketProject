@@ -82,15 +82,3 @@ export const login = async (req: Request, res: Response) => {
     });
   }
 };
-
-// logout controller
-export const logout = async (req: Request, res: Response) => {
-  try {
-    // Since JWT is stateless, logout can be handled on the client side by deleting the token.
-    res.json({ message: "Logout successful" });
-    // audit log // TODO
-  } catch (error) {
-    console.error("Logout error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};

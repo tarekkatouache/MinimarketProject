@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 // create user / register
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { username, role, first_name, last_name, email, phone } = req.body;
+    const { username, role, first_name, last_name } = req.body;
 
     if (!username || !role) {
       return res
@@ -39,8 +39,6 @@ export const createUser = async (req: Request, res: Response) => {
         role,
         first_name,
         last_name,
-        email,
-        phone,
         password_hash: await bcrypt.hash("123456", 10),
       },
     });

@@ -141,7 +141,6 @@ model user {
   phone           String?
   updated_at      DateTime?         @updatedAt
   scanLogs        scan_logs[]
-  auditLogs       audit_logs[]
 
   @@index([role])
   @@index([is_active])
@@ -156,16 +155,15 @@ model scan_logs {
   products   products? @relation(fields: [product_id], references: [id])
   user       user?     @relation(fields: [user_id], references: [id])
 }
-
 model audit_logs {
-  id         Int       @id @default(autoincrement())
-  entity     String
-  entity_id  Int
-  action     String
-  changes    String?
-  user_id    Int?
-  created_at DateTime? @default(now())
-  user       user?     @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  id          Int      @id @default(autoincrement())
+  entity      String
+  entity_id   Int
+  action      String
+  changes     String?
+  user_id     Int?
+  created_at  DateTime? @default(now())
+  user        user?     @relation(fields: [user_id], references: [id], onUpdate: NoAction)
 }
 
 enum Role {

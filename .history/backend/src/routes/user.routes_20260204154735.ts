@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireRole } from "../middleware/role.middleware";
+import requireRole from "../middleware/role.middleware";
 import {
   createUser,
   getUsers,
@@ -14,5 +14,5 @@ router.post("/", createUser);
 router.get("/", getUsers);
 router.get("/:id", getUserById);
 router.put("/:id", updateUser);
-router.delete("/:id", requireRole(["ADMIN"]), deleteUser);
+router.delete("/:id", requireRole("ADMIN"), deleteUser);
 export default router;

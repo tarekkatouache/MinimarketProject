@@ -39,8 +39,6 @@ export const createUser = async (req: Request, res: Response) => {
         role,
         first_name,
         last_name,
-        email,
-        phone,
         password_hash: await bcrypt.hash("123456", 10),
       },
     });
