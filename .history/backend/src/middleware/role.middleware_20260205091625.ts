@@ -1,10 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
-
 export const requireRole = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -34,7 +30,7 @@ export const requireRole = (roles: string[]) => {
       // 5. Check role
       if (!roles.includes(user.role)) {
         return res.status(403).json({
-          message: ` Access denied. Required roles: ${roles.join(", ")} `,
+          message: `Access denied. Required roles: ${roles.join(", ")}`,
         });
       }
 

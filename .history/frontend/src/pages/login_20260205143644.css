@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+.login-container {
+  width: 1160px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  /* height: 100%; */
+  align-items: center;
+  background-color: #f5f5f5;
+  background: white;
+  background-color: yellow;
+  padding: 0px;
+  font-family: "Arial", sans-serif;
+
+  border-radius: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.login-card {
+}
+/* min-height: 100%; */
+.login-header {
+  background: #1a1a1a;
+  /* padding: 40px 30px 30px; */
+  text-align: center;
+  position: relative;
+}

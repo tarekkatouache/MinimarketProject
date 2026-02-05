@@ -11,17 +11,16 @@ import {
 
 const router = Router();
 
-router.post("/", authMiddleware, requireRole(["MANAGER", "ADMIN"]), createUser);
-router.get("/", authMiddleware, requireRole(["MANAGER", "ADMIN"]), getUsers);
+router.post("/", createUser);
+router.get("/", authMiddleware, requireRole(["ADMIN"]), deleteUser, getUsers);
 router.get("/:id", getUserById);
-// Update user
 router.put(
   "/:id",
   authMiddleware,
-  requireRole(["MANAGER", "ADMIN"]),
+  requireRole(["ADMIN"]),
+  deleteUser,
   updateUser,
 );
-// delete user
 router.delete(
   "/:id",
   authMiddleware,

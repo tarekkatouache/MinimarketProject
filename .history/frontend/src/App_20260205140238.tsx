@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Dashboard from "./components/dashboardPage";
 import Salepage from "./components/salePage";

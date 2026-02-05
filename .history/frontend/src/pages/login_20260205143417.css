@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+.login-container {
+  width: 1160px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  /* height: 100%; */
+  align-items: center;
+  background-color: #f5f5f5;
+  background-color: yellow;
+  padding: 5px;
+
+  /* min-height: 100%; */
+  /* 
+  font-family: "Arial", sans-serif; */
+}

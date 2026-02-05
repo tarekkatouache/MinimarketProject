@@ -15,12 +15,7 @@ router.post("/", authMiddleware, requireRole(["MANAGER", "ADMIN"]), createUser);
 router.get("/", authMiddleware, requireRole(["MANAGER", "ADMIN"]), getUsers);
 router.get("/:id", getUserById);
 // Update user
-router.put(
-  "/:id",
-  authMiddleware,
-  requireRole(["MANAGER", "ADMIN"]),
-  updateUser,
-);
+router.put("/:id", authMiddleware, requireRole(["ADMIN"]), updateUser);
 // delete user
 router.delete(
   "/:id",

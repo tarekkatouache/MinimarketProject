@@ -18,7 +18,8 @@ router.get("/:id", getUserById);
 router.put(
   "/:id",
   authMiddleware,
-  requireRole(["MANAGER", "ADMIN"]),
+  requireRole(["ADMIN"]),
+  deleteUser,
   updateUser,
 );
 // delete user

@@ -104,13 +104,13 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
+  console.log("delete user is called");
   try {
     const { id } = req.params;
     await prisma.user.delete({
       where: { id: Number(id) },
     });
     res.status(204).send();
-    console.log("delete user is called");
   } catch (error) {
     res
       .status(500)

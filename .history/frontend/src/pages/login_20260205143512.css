@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+.login-container {
+  width: 1160px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  /* height: 100%; */
+  align-items: center;
+  background-color: #f5f5f5;
+  background-color: yellow;
+  padding: 0px;
+  font-family: "Arial", sans-serif;
+}
+.login-card {
+  width: 100%;
+  max-width: 100%;
+  background: white;
+  border-radius: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+/* min-height: 100%; */

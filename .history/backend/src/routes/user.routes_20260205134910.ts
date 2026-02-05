@@ -12,7 +12,7 @@ import {
 const router = Router();
 
 router.post("/", authMiddleware, requireRole(["MANAGER", "ADMIN"]), createUser);
-router.get("/", authMiddleware, requireRole(["MANAGER", "ADMIN"]), getUsers);
+router.get("/:id", authMiddleware, requireRole(["MANAGER", "ADMIN"]), getUsers);
 router.get("/:id", getUserById);
 // Update user
 router.put(
