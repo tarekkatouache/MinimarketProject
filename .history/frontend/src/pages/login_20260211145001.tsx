@@ -2,7 +2,7 @@ import React, { useState, type JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
-export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
+export default function Login(): JSX.Element {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,8 +28,8 @@ export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      setIsLoggedIn(true);
-      setUser(user);
+      // setIsLoggedIn(true);
+      // setUser(user);
       alert("Connexion réussie !");
       navigate("/dashboard");
     } catch (err) {

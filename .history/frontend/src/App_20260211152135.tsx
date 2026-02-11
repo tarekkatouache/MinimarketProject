@@ -17,7 +17,7 @@ function App() {
     <div>
       <div>
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={
               isLoggedIn ? (
@@ -31,7 +31,7 @@ function App() {
                 />
               )
             }
-          />
+          /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/salePage" element={<Salepage />} />

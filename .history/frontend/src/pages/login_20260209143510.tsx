@@ -1,52 +1,16 @@
-import React, { useState, type JSX } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
-export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
+export default function Login() {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-  const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:3000/api/auth/login", {
-        username: formData.username,
-        password: formData.password,
-      });
-      const { token, user } = res.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      setIsLoggedIn(true);
-      setUser(user);
-      alert("Connexion réussie !");
-      navigate("/dashboard");
-    } catch (err) {
-      console.error(err);
-      alert("Échec de la connexion. Veuillez réessayer.");
-      if (axios.isAxiosError(err)) {
-        // TypeScript now knows err is AxiosError
-        setError(
-          err.response?.data?.message || err.message || "La connexion a échoué",
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("La connexion a échoué");
-      }
-    }
-  };
   return (
     <div className="signin-container">
       {/* Left Panel */}
@@ -82,26 +46,19 @@ export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
           <p className="form-label">POINT OF SALE</p>
           <h2 className="form-title">Sign in</h2>
 
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="input-group">
               <input
-                type="text"
-                // type="email"
+                type="email"
+                placeholder="Email address"
                 className="input-field"
-                id="username"
-                placeholder="Enter your username"
-                value={formData.username}
-                onChange={handleChange}
               />
             </div>
 
             <div className="input-group">
               <input
                 type="password"
-                id="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
+                placeholder="Password"
                 className="input-field"
               />
             </div>

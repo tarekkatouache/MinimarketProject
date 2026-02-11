@@ -1,0 +1,79 @@
+import React, { useState } from "react";
+import "./login.css";
+
+const Login: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Login:", { email, password });
+    // Add your login logic here
+  };
+
+  return;
+  <div className="signin-container">
+    {/* Left Panel */}
+    <div className="left-panel">
+      <div className="logo">
+        <svg className="logo-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M4 6L12 3L20 6L12 9L4 6Z" fill="#E74C3C" />
+          <path d="M4 6V18L12 21L20 18V6" stroke="#E74C3C" strokeWidth="2" />
+        </svg>
+        <span className="logo-text">ROLLER</span>
+      </div>
+
+      <div className="pos-icon">
+        <svg viewBox="0 0 120 140" fill="none">
+          <rect x="20" y="20" width="80" height="100" rx="8" fill="#E74C3C" />
+          <rect x="30" y="30" width="60" height="30" rx="4" fill="#2C3E50" />
+          <circle cx="45" cy="80" r="8" fill="#2C3E50" />
+          <circle cx="60" cy="80" r="8" fill="#2C3E50" />
+          <circle cx="75" cy="80" r="8" fill="#2C3E50" />
+          <circle cx="45" cy="95" r="8" fill="#2C3E50" />
+          <circle cx="60" cy="95" r="8" fill="#2C3E50" />
+          <circle cx="75" cy="95" r="8" fill="#2C3E50" />
+          <rect x="35" y="105" width="50" height="8" rx="2" fill="#F8F9FA" />
+        </svg>
+      </div>
+
+      <h1 className="left-title">Point of Sale</h1>
+    </div>
+
+    {/* Right Panel */}
+    <div className="right-panel">
+      <div className="signin-form">
+        <p className="form-label">POINT OF SALE</p>
+        <h2 className="form-title">Sign in</h2>
+
+        <form>
+          <div className="input-group">
+            <input
+              type="email"
+              placeholder="Email address"
+              className="input-field"
+            />
+          </div>
+
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder="Password"
+              className="input-field"
+            />
+          </div>
+
+          <a href="#" className="forgot-link">
+            Forgotten your password?
+          </a>
+
+          <button type="submit" className="signin-button">
+            Roll in
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>;
+};
+
+export default Login;

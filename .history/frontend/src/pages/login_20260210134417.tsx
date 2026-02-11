@@ -1,8 +1,8 @@
-import React, { useState, type JSX } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
-export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
+export default function Login() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,40 +11,33 @@ export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
   });
   const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.id]: e.target.value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3000/api/auth/login", {
         username: formData.username,
         password: formData.password,
       });
+
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      setIsLoggedIn(true);
-      setUser(user);
+      // setIsLoggedIn(true);
+      // setUser(user);
+
       alert("Connexion réussie !");
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
       alert("Échec de la connexion. Veuillez réessayer.");
-      if (axios.isAxiosError(err)) {
-        // TypeScript now knows err is AxiosError
-        setError(
-          err.response?.data?.message || err.message || "La connexion a échoué",
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("La connexion a échoué");
-      }
+      setError(err.response?.data?.message || "La connexion a échoué");
     }
   };
   return (

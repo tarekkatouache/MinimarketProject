@@ -11,31 +11,16 @@ import { useState } from "react";
 // import { SystemsProvider } from "./context/systemsContext";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
       <div>
         <Routes>
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <Login
-                  setIsLoggedIn={setIsLoggedIn}
-                  isLoggedIn={isLoggedIn}
-                  user={user}
-                  setUser={setUser}
-                />
-              )
-            }
-          />
+          <Route path="/"  element={<isLoggedIn ?  ( <Navigate to="/dashboard" /> ): ( <Login setIsLoggedIn={setIsLoggedIn} isLogged={isLoggedIn} user={JSON.parse(localStorage.getItem("user") || "{}")} />} />}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/salePage" element={<Salepage />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
       {/* <Dashboard /> */}

@@ -2,7 +2,7 @@ import React, { useState, type JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
-export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
+export default function Login({ setIsLoggedIn :JSX.element , setUser }): JSX.Element {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

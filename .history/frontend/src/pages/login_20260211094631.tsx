@@ -2,7 +2,7 @@ import React, { useState, type JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
-export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
+export default function Login(): JSX.Element {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -25,26 +25,23 @@ export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
         username: formData.username,
         password: formData.password,
       });
+
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      setIsLoggedIn(true);
-      setUser(user);
+      // setIsLoggedIn(true);
+      // setUser(user);
+
       alert("Connexion réussie !");
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
       alert("Échec de la connexion. Veuillez réessayer.");
       if (axios.isAxiosError(err)) {
-        // TypeScript now knows err is AxiosError
-        setError(
-          err.response?.data?.message || err.message || "La connexion a échoué",
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("La connexion a échoué");
-      }
+
+      setError(
+        err.response?.data?.message || err.message || "La connexion a échoué",
+      );
     }
   };
   return (

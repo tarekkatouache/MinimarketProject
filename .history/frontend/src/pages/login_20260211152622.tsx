@@ -28,8 +28,8 @@ export default function Login({ setIsLoggedIn, setUser }): JSX.Element {
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      setIsLoggedIn(true);
-      setUser(user);
+      // setIsLoggedIn(true);
+      // setUser(user);
       alert("Connexion réussie !");
       navigate("/dashboard");
     } catch (err) {

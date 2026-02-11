@@ -2,40 +2,24 @@
 import "./App.css";
 import Dashboard from "./components/dashboardPage";
 import Salepage from "./components/salePage";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
 // import Login from "./components/loginPage";
 import Login from "./pages/login";
 import Signup from "./components/signupPage";
-import { useState } from "react";
 // import { SystemsProvider } from "./context/systemsContext";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-  const [user, setUser] = useState(null);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
       <div>
         <Routes>
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <Login
-                  setIsLoggedIn={setIsLoggedIn}
-                  isLoggedIn={isLoggedIn}
-                  user={user}
-                  setUser={setUser}
-                />
-              )
-            }
-          />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/salePage" element={<Salepage />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
       {/* <Dashboard /> */}

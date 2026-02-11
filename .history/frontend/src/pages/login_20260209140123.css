@@ -194,7 +194,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1640px) {
   .signin-form {
     padding: 2rem 1.5rem;
   }
